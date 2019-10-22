@@ -10,11 +10,10 @@ import Foundation
 
 final class NYTimesBookAPIClient {
     private init() {}
-    private var apiKey = "Ge7O8fEFdUuSujd9AldzIIZQjV0cx1GI"
     static let shared = NYTimesBookAPIClient()
     
     func getBooks(categoryName: String, completionHandler: @escaping (Result<[NYTimeBook], AppError>) -> Void) {
-   let urlStr = "https://api.nytimes.com/svc/books/v3/lists/current/\(categoryName).json?api-key=\(apiKey)"
+        let urlStr = "https://api.nytimes.com/svc/books/v3/lists/current/\(categoryName).json?api-key=\(Secret.categoryKey)"
         
          guard let url = URL(string: urlStr) else {
              completionHandler(.failure(.badURL))

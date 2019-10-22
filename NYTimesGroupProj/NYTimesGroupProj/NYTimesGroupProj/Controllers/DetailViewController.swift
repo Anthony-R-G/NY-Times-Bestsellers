@@ -111,6 +111,17 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    lazy var pomeButton: UIButton = {
+        let button = UIButton()
+        button.showsTouchWhenHighlighted = true
+        button.addTarget(self, action: #selector(pomeButtonPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(named: "pomegranate")
+        button.setImage(image, for: .normal)
+        view.addSubview(button)
+        return button
+    }()
+    
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.showsTouchWhenHighlighted = true
@@ -148,6 +159,15 @@ class DetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc private func pomeButtonPressed(){
+        let nextVC = FavoritesViewController()
+        let davidBook = FavoritedBook(weeks_on_list: 100, description: "Writing code with the one and only David. Easy and fast to learn, Cool Swift code. No refunds.", title: "Isn't this COOL?", author: "David Rifkin", book_image: "https://i.imgur.com/emnseIU.png", amazon_product_url: "not avaiable", date: "June 24", id: 6)
+        do{
+            try? FavoriteBookPersistenceHelper.manager.save(newBook: davidBook)
+        }
+        present(nextVC, animated: true, completion:  nil)
+    }
+    
     @objc private func amazonButtonPressed() {
         if let url = URL(string: currentBook.amazon_product_url) {
             UIApplication.shared.open(url)
@@ -171,6 +191,11 @@ class DetailViewController: UIViewController {
             saveButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             saveButton.heightAnchor.constraint(equalToConstant: 30),
             saveButton.widthAnchor.constraint(equalToConstant: 60),
+            
+            pomeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -150),
+            pomeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            pomeButton.heightAnchor.constraint(equalToConstant: 60),
+            pomeButton.widthAnchor.constraint(equalToConstant: 60),
             
             backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -150),
             backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),

@@ -10,12 +10,10 @@ import Foundation
 
 final class NYTimesCategoriesAPIClient {
     private init() {}
-    
-    private var apiKey = "Ge7O8fEFdUuSujd9AldzIIZQjV0cx1GI"
     static let shared = NYTimesCategoriesAPIClient()
     
     func getCategories(completionHandler: @escaping (Result<[ListNameResult], AppError>) -> Void) {
-         let urlStr = "https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=D8XGY4XP3kgNv2V9li2f192mdAOKesVe"
+        let urlStr = "https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=\(Secret.nyKey)"
          
          guard let url = URL(string: urlStr) else {
              completionHandler(.failure(.badURL))
